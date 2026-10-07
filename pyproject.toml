@@ -1,0 +1,17 @@
+[project]
+name = "fastapi-dina"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+authors = [
+    { name = "Din2A", email = "dinazoppolo@gmail.com" }
+]
+requires-python = ">=3.12"
+dependencies = [
+    "alembic>=1.20.0",
+    "fastapi[standard]>=0.141.1",
+    "sqlmodel>=0.0.42",
+]
+
+[tool.uv]
+package = false
