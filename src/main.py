@@ -1,21 +1,14 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from sqlmodel import SQLModel 
-
-
-from database import engine
-from models.opciones import (
-    Opcion,
-)
 from routers.opciones import opciones_routers
-
-SQLModel.metadata.create_all(bind=engine)
+from routers.proveedor import proveedor_routers
 
 app = FastAPI()
 
 app.title = "Mi primera API"  
 
 app.include_router(opciones_routers, tags=["Opciones"], prefix="/opciones")
+app.include_router(proveedor_routers, tags=["Proveedor"],prefix="/proveedor")
 
 app.add_middleware(
     CORSMiddleware,

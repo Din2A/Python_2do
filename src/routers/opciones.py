@@ -4,6 +4,7 @@ from fastapi import APIRouter, Depends, HTTPException, Path, Query
 from sqlmodel import Session, select
 
 from database import get_db
+from models.anidados import OpcionNested
 from models.opciones import Opcion, OpcionPublic, OpcionBase
 
 opciones_routers = APIRouter()
@@ -29,7 +30,7 @@ async def get_opciones(db: Session = Depends(get_db)):
 @opciones_routers.get(
     "/{id}", 
     responses=NOT_FOUND_RESPONSE,
-    response_model=OpcionPublic,
+    response_model=OpcionNested,
 )
 async def get_opciones_by_id(
     id: Annotated[int, Path(gt=0)], db: Session = Depends(get_db)
@@ -39,7 +40,7 @@ async def get_opciones_by_id(
         return opcion_obtenida
     raise HTTPException(status_code=404, detail="Opcion no encontrada")
 
-@opciones_routers.post("/", response_model=OpcionPublic) 
+@opciones_routers.post("/", response_model=OpcionNested) 
 async def crear_opcion(
     opcion_nueva: OpcionBase, db: Session = Depends(get_db)
 ): 
